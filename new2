@@ -2,7 +2,6 @@
 Дані представити у вигляді таблиць (використовувати компонент JTable). 
 Складність БД - необмежена. Мінімум - вона повинна містити хоча б одну таблицю. Поштове відділення
 
-
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.sql.*;
@@ -14,13 +13,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Project9 extends JFrame {
+public class lab9 extends JFrame {
     private Connection connection;
     private Statement statement;
     private PreparedStatement ps;
     private UserData userData;
 
-    public Project9() {
+    public lab9() {
         initConnection();
         buildUI();
         loadDataFromDB();
@@ -43,7 +42,7 @@ public class Project9 extends JFrame {
 
     private void initConnection() {
         try {
-            connection = DriverManager.getConnection("jdbc:ucanaccess://C:/Dmytro/Tsymbal2.mdb");
+            connection = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Max/Documents/Olenchenko.accdb");
             statement = connection.createStatement();
         }
         catch (Exception e) {
@@ -81,7 +80,7 @@ public class Project9 extends JFrame {
     private void loadDataFromDB() {
         this.userData.alData.clear();
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Tsymbal");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Olenchenko");
             while (resultSet.next()) {
                 String ind = resultSet.getString(1);
                 String Nomer = resultSet.getString(2);
@@ -100,7 +99,7 @@ public class Project9 extends JFrame {
         String ind;
         String Nomer;
         String Misto;
-       String Adresa;
+        String Adresa;
 
         public RowAddress(String ind, String Nomer, String Misto, String Adresa) {
             this.ind = ind;
@@ -136,7 +135,7 @@ public class Project9 extends JFrame {
         }
 
         public int getRowCount() {
-        return alData == null ? 0 : alData.size();
+            return alData == null ? 0 : alData.size();
         }
         public String getColumnName(int column) {
             return columns[column];
@@ -148,7 +147,7 @@ public class Project9 extends JFrame {
 
     public void DeleteC() {
         try {
-            statement.executeUpdate("delete from Tsymbal where Nomer = '1'");
+            statement.executeUpdate("delete from Olenchenko where Nomer = '1'");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -162,7 +161,7 @@ public class Project9 extends JFrame {
             String Misto = "Poltava";
             String Adresa = "Kinceva 13";
 
-            String query1 = "INSERT INTO Tsymbal(Nomer, Misto, Adresa)"
+            String query1 = "INSERT INTO Olenchenko(Nomer, Misto, Adresa)"
                     + "VALUES ('"+Nomer+"','"+Misto+"','"+Adresa+"')";
             statement = connection.createStatement();
             statement.executeUpdate(query1);
@@ -175,6 +174,6 @@ public class Project9 extends JFrame {
 class Main {
     public static void main(String[] args)
     {
-        new Project9();
+        new lab9();
     }
 }
